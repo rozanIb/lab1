@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class adapter(private val userlist:ArrayList<User>): RecyclerView.Adapter<adapter.MyViewHolder>() {
+class adapter(val context: MainActivity, val userlist: ArrayList<User>): RecyclerView.Adapter<adapter.MyViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item,parent,false)
         return MyViewHolder(itemView)
