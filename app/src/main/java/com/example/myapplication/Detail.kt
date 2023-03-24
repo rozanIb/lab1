@@ -1,53 +1,42 @@
 package com.example.myapplication
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
-import android.widget.TextView
 import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-class MainActivity : AppCompatActivity() {
-    private lateinit var recyclerView1: RecyclerView
-
-
+class Detail : AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        val progressBar = findViewById<ProgressBar>(R.id.progressBar)
+        setContentView(R.layout.detail)
+        val progressBar = findViewById<ProgressBar>(R.id.DprogressBar)
         progressBar.visibility= View.VISIBLE
-
         val db = Firebase.firestore
-        val notelist = ArrayList<NoteData>()
-        val adapter = HomeAdapter(this,notelist)
-        recyclerView1=findViewById(R.id.recyclerView1)
-        recyclerView1.layoutManager = LinearLayoutManager(this)
-        recyclerView1.adapter= adapter
-
+        val detaillist = ArrayList<detailData>()
+        val adapter = detailAdapter(this,detaillist)
         db.collection("Home").get().addOnSuccessListener {
-           result->
+                result->
             for(document in result ){
-                notelist.add(
-                    NoteData(
+                detaillist.add(
+                    detailData(
                         document.getString("image").toString(),
-                        document.getString("name").toString(),
-
-                    )
+                        document.getString("Name").toString(),
+                        document.getString("Dece").toString(),
+                        document.getString("Number").toString().toInt()
+                        )
                 )
                 adapter.notifyDataSetChanged()
             }
             progressBar.visibility= View.GONE
         }
             .addOnFailureListener{
-                Toast.makeText(this,"Failed ",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,"Failed ", Toast.LENGTH_SHORT).show()
                 progressBar.visibility= View.GONE
             }
-
-}}
+    }
+}

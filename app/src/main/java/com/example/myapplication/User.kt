@@ -1,3 +1,3 @@
 package com.example.myapplication
 
-data class User (var Name: String?=null , var desc:String?=null , var Number:String?=null)
+data class User (var image2: String ?=null, var name2:String?=null)
