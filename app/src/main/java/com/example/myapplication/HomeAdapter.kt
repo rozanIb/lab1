@@ -27,7 +27,7 @@ class HomeAdapter(val context: MainActivity, val notelist: ArrayList<NoteData>):
         Picasso.get().load(img).into(holder.image)
         holder.Name.text = data.name
         holder.Name.setOnClickListener {
-            val intent = Intent(context, Detail::class.java)
+            val intent = Intent(context, Note::class.java)
             context.startActivity(intent)
         }
         }

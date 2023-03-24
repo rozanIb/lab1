@@ -41,7 +41,7 @@ class Detail : AppCompatActivity() {
             }
 
         })
-        db.collection("/Note/Note/Assignment/Done/detail").get().addOnSuccessListener {
+        db.collection("/Note/Note/Assignment/Done/detail/").get().addOnSuccessListener {
                 result->
             for(document in result ){
                 detaillist.add(
