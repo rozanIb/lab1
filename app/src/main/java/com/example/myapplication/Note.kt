@@ -33,7 +33,7 @@ class Note : AppCompatActivity() {
         recyclerView=findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter= adapter
-        val bundle:Bundle?=intent.extras
+
 
         db.collection("/Note/Note/Assignment").get().addOnSuccessListener {
                 result->
