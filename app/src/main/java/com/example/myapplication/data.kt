@@ -26,7 +26,7 @@ class data : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_data)
-        edName=findViewById(R.id.name)
+        edName=findViewById(R.id.edname)
         edDesc=findViewById(R.id.desc)
         edNum=findViewById(R.id.num)
         db = FirebaseFirestore.getInstance()

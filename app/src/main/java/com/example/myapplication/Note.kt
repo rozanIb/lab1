@@ -5,16 +5,21 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class Note : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
+    private lateinit var analytics: FirebaseAnalytics
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,8 +33,9 @@ class Note : AppCompatActivity() {
         recyclerView=findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter= adapter
+        val bundle:Bundle?=intent.extras
 
-        db.collection("Note").get().addOnSuccessListener {
+        db.collection("/Note/Note/Assignment").get().addOnSuccessListener {
                 result->
             for(document in result ){
                 userlist.add(
@@ -48,4 +54,23 @@ class Note : AppCompatActivity() {
                 Toast.makeText(this,"Failed ",Toast.LENGTH_SHORT).show()
                 progressBar.visibility= View.GONE
             }
-    }}
+        analytics = Firebase.analytics
+        screenTraack("Note", "note")
+        cintent("2","Note","cardView")
+    }
+    fun cintent(id: String, name: String, contentType: String) {
+        analytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT) {
+            param(FirebaseAnalytics.Param.ITEM_ID, id)
+            param(FirebaseAnalytics.Param.ITEM_NAME, name)
+            param(FirebaseAnalytics.Param.CONTENT_TYPE, contentType)
+        }
+    }
+    fun screenTraack(screenClass: String, screenName: String) {
+        analytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
+            param(FirebaseAnalytics.Param.SCREEN_CLASS, screenClass)
+            param(FirebaseAnalytics.Param.SCREEN_NAME, screenName)
+        }
+    }
+
+
+}

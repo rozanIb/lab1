@@ -2,6 +2,7 @@ package com.example.myapplication
 
 import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
@@ -9,9 +10,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 
 class adapter(val context: Note, val userlist: ArrayList<User>): RecyclerView.Adapter<adapter.MyViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): adapter.MyViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item,parent,false)
-        return MyViewHolder(itemView)
+        return adapter.MyViewHolder(itemView)
+
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
@@ -32,7 +35,7 @@ class adapter(val context: Note, val userlist: ArrayList<User>): RecyclerView.Ad
     }
 
 
-    class MyViewHolder(itemView: android.view.View) : RecyclerView.ViewHolder(itemView) {
+    class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val image: ImageView = itemView.findViewById(R.id.image2)
         val Name: TextView = itemView.findViewById(R.id.name2)
 
